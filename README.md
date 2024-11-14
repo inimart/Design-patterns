@@ -84,7 +84,3 @@ The project is organized into several key components:
 4. Use UI buttons to move the player
 5. Collect coins to increase level
 6. Use UI buttons for undo/redo and replay functionality
-
-## Technical Requirements
-- Unity 2021.3 or higher
-- .NET 4.x Scripting Runtime
