@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using Injection;
 using UnityEngine;
 
 public class CmdInvoker: MonoBehaviour
@@ -12,6 +14,12 @@ public class CmdInvoker: MonoBehaviour
     private Stack<Command> redoStack = new();
     private bool isExecuting = false;
     
+    [Inject] IEventMng eventMng;
+
+    private void Start()
+    {
+        Initializer.Injector.Inject(this);    
+    }
 
     private void FromUndoStackToCommandQueueHistory()
     {
@@ -27,6 +35,8 @@ public class CmdInvoker: MonoBehaviour
     
     private IEnumerator PlayReplay()
     {
+        eventMng.OnReplay();
+        
         while (commandQueueReplay.Count > 0)
         {
             Command command = commandQueueReplay.Dequeue();
