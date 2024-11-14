@@ -2,6 +2,8 @@
 
 A Unity project demonstrating the implementation and interaction of various design patterns in game development. The project features a simple game where a player can move in four directions, collect coins to level up, and includes functionality for undoing/redoing moves and replaying gameplay sequences.
 
+![GamePlay GIF](./Readme_resources/gamePlay.gif)
+
 ## Design Patterns Implementation
 
 ### Command Pattern
