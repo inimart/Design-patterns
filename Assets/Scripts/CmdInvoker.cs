@@ -42,6 +42,8 @@ public class CmdInvoker: MonoBehaviour
             Command command = commandQueueReplay.Dequeue();
             yield return StartCoroutine(command.Execute());
         }
+        
+        ReturnCommandsToPool();
     }
     
     public void AddCommand(Command command)
@@ -101,4 +103,16 @@ public class CmdInvoker: MonoBehaviour
         undoStack.Push(command);
         isExecuting = false;
     }   
+    
+    public void ReturnCommandsToPool()
+    {
+        while (undoStack.Count > 0)
+        {
+            CommandFactory.Return(undoStack.Pop());
+        }
+        while (redoStack.Count > 0)
+        {
+            CommandFactory.Return(redoStack.Pop());
+        }
+    }
 }

@@ -1,35 +1,41 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+public class MoveCommandState
+{
+    public Vector3 Direction { get; set; }
+    public Vector3 StartPosition { get; set; }
+    public Vector3 EndPosition { get; set; }
+    public Transform Target { get; set; }
+}
 public class MoveCmd: Command
 {
-    public Vector3 direction;
-    private Transform target;
-    private Vector3 startPosition;
-    private Vector3 endPosition;
-    float duration = 0.2f;
+    private MoveCommandState state;
+    private float duration = 0.2f;
 
-    public MoveCmd(Transform target, Vector3 direction)
+    public void Initialize(Transform target, Vector3 direction)
     {
-        this.target = target;
-        this.direction = direction;
+        if (state == null) 
+            state = new MoveCommandState();
+            
+        state.Target = target;
+        state.Direction = direction;
+        state.StartPosition = target.position;
+        state.EndPosition = state.StartPosition + direction;
     }
 
     public override IEnumerator Execute()
     {
-        startPosition = target.position;
-        endPosition = startPosition + direction;
-        
         float elapsedTime = 0;
 
         while (elapsedTime < duration)
         {
-            target.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / duration);
+            state.Target.position = Vector3.Lerp(state.StartPosition, state.EndPosition, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        target.position = endPosition;
+        state.Target.position = state.EndPosition;
     }
 
     public override IEnumerator Undo()
@@ -38,11 +44,11 @@ public class MoveCmd: Command
 
         while (elapsedTime < duration)
         {
-            target.position = Vector3.Lerp(endPosition, startPosition, elapsedTime / duration);
+            state.Target.position = Vector3.Lerp(state.EndPosition, state.StartPosition, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        target.position = startPosition;
+        state.Target.position = state.StartPosition;
     }
 }
