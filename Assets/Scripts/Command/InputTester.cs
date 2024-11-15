@@ -24,22 +24,30 @@ public class InputTester: MonoBehaviour
     //Create a public method foreach input
     public void MoveLeftInput()
     {
-        cmdInvoker.AddCommand(new MoveCmd(t, Vector3.left));
+        var cmd = CommandFactory.Get<MoveCmd>();
+        cmd.Initialize(t, Vector3.left);
+        cmdInvoker.AddCommand(cmd);
     }
     
     public void MoveRightInput()
     {
-        cmdInvoker.AddCommand(new MoveCmd(t, Vector3.right));
+        var cmd = CommandFactory.Get<MoveCmd>();
+        cmd.Initialize(t, Vector3.right);
+        cmdInvoker.AddCommand(cmd);
     }
     
     public void MoveForwardInput()
     {
-        cmdInvoker.AddCommand(new MoveCmd(t, Vector3.forward));
+        var cmd = CommandFactory.Get<MoveCmd>();
+        cmd.Initialize(t, Vector3.forward);
+        cmdInvoker.AddCommand(cmd);
     }
     
     public void MoveBackwardInput()
     {
-        cmdInvoker.AddCommand(new MoveCmd(t, -Vector3.forward));
+        var cmd = CommandFactory.Get<MoveCmd>();
+        cmd.Initialize(t, -Vector3.forward);
+        cmdInvoker.AddCommand(cmd);
     }
     
     public void ReplayInput()
