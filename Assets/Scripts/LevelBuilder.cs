@@ -7,11 +7,6 @@ public class LevelBuilder: MonoBehaviour
     GameObject currentCoins;
     public GameObject Coins;
 
-    void InstantiateCoins()
-    {
-        currentCoins = Instantiate(Coins, new Vector3(0, 0, 0), Quaternion.identity);
-    }
-
     private void Start()
     {
         Initializer.Injector.Inject(this);    
@@ -21,6 +16,10 @@ public class LevelBuilder: MonoBehaviour
         InstantiateCoins();
     }
     
+    void InstantiateCoins()
+    {
+        currentCoins = Instantiate(Coins, new Vector3(0, 0, 0), Quaternion.identity);
+    }
     private void OnReplayHandler()
     {
         //Destroy current Coins and instantiate new ones
