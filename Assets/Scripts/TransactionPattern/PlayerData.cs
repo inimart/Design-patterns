@@ -2,8 +2,8 @@
 public class PlayerData: IPlayerData
 {
     public int Level { get; set; }
-    public void ExecuteTransaction(PlayerTransaction playerTransaction)
+    public void ExecuteTransaction(PlayerTransaction playerTransaction, object data = null)
     {
-        playerTransaction.Execute(this);
+        playerTransaction.Execute(this, data);
     }
 }

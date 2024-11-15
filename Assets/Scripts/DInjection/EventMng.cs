@@ -4,30 +4,14 @@ using UnityEngine;
 
 public class EventMng : MonoBehaviour, IEventMng
 {
-    public TextMeshProUGUI LevelText;
-    public GameObject Coins;
-    public event IEventMng.ReplayDelegate OnReplayEvent;
-    GameObject currentCoins;
+    public event IEventMng.ReplayDelegate ReplayEvent;
 
-    void InstantiateCoins()
+    public void InvokePlayerLevelChangedEvent(int level)
     {
-        currentCoins = Instantiate(Coins, new Vector3(0, 0, 0), Quaternion.identity);
     }
-    private void Start()
+    public void InvokeReplayEvent()
     {
-        InstantiateCoins();
-    }
-
-    public void OnPlayerLevelChanged(int level)
-    {
-        LevelText.text = $"Level {level.ToString()}";
-    }
-    public void OnReplay()
-    {
-        //Destroy current Coins and instantiate new ones
-        Destroy(currentCoins);
-        InstantiateCoins();
-        OnPlayerLevelChanged(0);
-        OnReplayEvent?.Invoke();
+        InvokePlayerLevelChangedEvent(0);
+        ReplayEvent?.Invoke();
     }
 }

@@ -35,7 +35,7 @@ public class CmdInvoker: MonoBehaviour
     
     private IEnumerator PlayReplay()
     {
-        eventMng.OnReplay();
+        eventMng.InvokeReplayEvent();
         
         while (commandQueueReplay.Count > 0)
         {

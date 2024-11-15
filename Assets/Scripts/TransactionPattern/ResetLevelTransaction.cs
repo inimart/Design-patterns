@@ -9,7 +9,7 @@ public sealed class ResetLevelTransaction: PlayerTransaction
     }
     
     //Transaction pattern
-    public override void Execute(PlayerData playerData)
+    public override void Execute(PlayerData playerData, object data = null)
     {
         playerData.Level = 0;
     }

@@ -12,10 +12,15 @@ public sealed class LevelUpTransaction: PlayerTransaction
     }
     
     //Transaction pattern
-    public override void Execute(PlayerData playerData)
+    public override void Execute(PlayerData playerData, object data = null)
     {
-        playerData.Level++;
-        eventMng.OnPlayerLevelChanged(playerData.Level);
+        int value = 0;
+        //if data == null then value = 0 else value = (int)data
+        if (data != null)
+            value = (int) data;
+        
+        playerData.Level += value;
+        eventMng.InvokePlayerLevelChangedEvent(playerData.Level);
         //Do other stuff that you want to do when the player levels up
     }
 }

@@ -2,5 +2,5 @@
 public interface IPlayerData
 {
     public int Level { get; }
-    public void ExecuteTransaction(PlayerTransaction playerTransaction);
+    public void ExecuteTransaction(PlayerTransaction playerTransaction, object data = null);
 }

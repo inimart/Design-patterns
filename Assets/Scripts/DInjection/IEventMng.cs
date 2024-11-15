@@ -5,7 +5,9 @@ using Injection;
 public interface IEventMng: IInjectable
 {
     delegate void ReplayDelegate();
-    public event ReplayDelegate OnReplayEvent;
-    public void OnPlayerLevelChanged(int level);
-    public void OnReplay();
+    delegate void LevelChangedDelegate();
+    public event ReplayDelegate ReplayEvent;
+    public event LevelChangedDelegate PlayerLevelChangedEvent;
+    public void InvokePlayerLevelChangedEvent(int level);
+    public void InvokeReplayEvent();
 }

@@ -11,7 +11,7 @@ public class Player: MonoBehaviour
     private void Start()
     {
         Initializer.Injector.Inject(this);
-        eventMng.OnReplayEvent += OnReplayHandler;
+        eventMng.ReplayEvent += OnReplayHandler;
     }
 
     void OnReplayHandler()
@@ -20,16 +20,17 @@ public class Player: MonoBehaviour
         var resetLevelTransaction = TransactionFactory.Get<ResetLevelTransaction>();
         playerData.ExecuteTransaction(resetLevelTransaction);
     }
-    private void CollectCoin()
+    private void CollectCoin(int points)
     {
         //Transaction pattern
         var levelUpTransaction = TransactionFactory.Get<LevelUpTransaction>();
-        playerData.ExecuteTransaction(levelUpTransaction);
+        playerData.ExecuteTransaction(levelUpTransaction, points);
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        CoinData coinData = other.GetComponent<Coin>().Data;
+        CollectCoin(coinData.points);
         Destroy(other.gameObject);
-        CollectCoin();
     }
 }
