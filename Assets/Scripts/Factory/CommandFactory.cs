@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class CommandFactory
 {
@@ -29,6 +30,7 @@ public class CommandFactory
         {
             InitializePool<T>();
         }
+        Debug.Log($"commandPools size {commandPools[type].Count}");
 
         var pool = commandPools[type];
         if (pool.Count == 0)

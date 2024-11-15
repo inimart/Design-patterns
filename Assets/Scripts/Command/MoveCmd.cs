@@ -20,12 +20,14 @@ public class MoveCmd: Command
             
         state.Target = target;
         state.Direction = direction;
-        state.StartPosition = target.position;
-        state.EndPosition = state.StartPosition + direction;
     }
 
     public override IEnumerator Execute()
     {
+        //StartPosition and EndPosition are set here because when we initialize we could be in the middle of a prev command execution
+        state.StartPosition = state.Target.position;
+        state.EndPosition = state.StartPosition + state.Direction;
+        
         float elapsedTime = 0;
 
         while (elapsedTime < duration)
